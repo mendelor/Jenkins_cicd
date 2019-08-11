@@ -1,46 +1,20 @@
 pipeline {
-  environment {
-    registry = "mendelor/dockerwebapp"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-  }
-  agent any
-  tools {nodejs "node" }
+  agent none
   stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/gustavoapolinario/node-todo-frontend'
-      }
-    }
-    stage('Build') {
-       steps {
-         sh 'npm install'
-       }
-    }
-    stage('Test') {
-      steps {
-        sh 'npm test'
-      }
-    }
-    stage('Building image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+    stage('Maven Install') {
+      agent {
+        docker {
+          image 'maven:3.5.0'
         }
       }
-    }
-    stage('Deploy Image') {
-      steps{
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
-        }
+      steps {
+        sh 'mvn clean install'
       }
     }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t shanem/spring-petclinic:latest .'
       }
     }
   }
