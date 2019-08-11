@@ -1,11 +1,10 @@
 pipeline {
-    agent { docker { image 'apache' } }
+    agent { docker { image 'nginx' } }
     stages {
         stage('build') {
             steps {
-                sh 'apache --version'
+                sh 'nginx --version'
             }
-            sh "docker login -u=$REGISTRY_AUTH_USR -p=$REGISTRY_AUTH_PSW ${env.REGISTRY_ADDRESS}"
         }
     }
 }
