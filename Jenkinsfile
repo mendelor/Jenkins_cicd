@@ -7,7 +7,7 @@ pipeline {
     agent any
     
     stages {
-        stage('build') {
+        stage('pull') {
             steps {
                 sh 'php --version'
             }
