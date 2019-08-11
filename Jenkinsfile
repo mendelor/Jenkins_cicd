@@ -1,14 +1,14 @@
 pipeline {
-    agent { docker { image 'php:5.2' } }
+    agent { docker { image 'httpd:2.4' } }
     stages {
         stage('build') {
             steps {
-                sh 'php --version'
+                sh 'httpd --version'
             }
         }
         stage('run') {
             steps {
-                sh 'docker run -d php'
+                sh 'docker run -dit --name my-running-app -p 80:80 httpd:2.4'
             }
         }
     
