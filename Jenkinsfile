@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'apache --version'
+                sh 'python --version'
             }
         }
     }
