@@ -1,9 +1,9 @@
 pipeline {
-    agent { docker { image 'httpd' } }
+    agent { docker { image 'apache' } }
     stages {
         stage('build') {
             steps {
-                sh 'httpd --version'
+                sh 'apache --version'
             }
         }
     }
