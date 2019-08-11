@@ -1,14 +1,14 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent { docker { image 'php:5.2' } }
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
+                sh 'php --version'
             }
         }
         stage('run') {
             steps {
-                sh 'docker run -d maven'
+                sh 'docker run -d php'
             }
         }
     
