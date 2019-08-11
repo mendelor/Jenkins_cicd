@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'maven:3.3.1' } }
+    agent { docker { image 'maven:3.3.3' } }
     stages {
         stage('build') {
             steps {
@@ -8,7 +8,7 @@ pipeline {
         }
         stage('run') {
             steps {
-                sh 'docker run -d maven:3.3.1'
+                sh 'docker run -d maven:3.3.3'
             }
         }
     
