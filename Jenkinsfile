@@ -8,7 +8,7 @@ pipeline {
         }
         stage('run') {
             steps {
-                sh 'docker run -d maven:3.3.3'
+                sh 'docker run -d maven'
             }
         }
     
