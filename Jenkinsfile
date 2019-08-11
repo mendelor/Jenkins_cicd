@@ -1,9 +1,9 @@
 pipeline {
-    agent { docker { image 'nginx' } }
+    agent { docker { image 'apache' } }
     stages {
         stage('build') {
             steps {
-                sh 'nginx --version'
+                sh 'apache --version'
             }
         }
         stage('Pull image') {
