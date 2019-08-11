@@ -1,9 +1,12 @@
 pipeline {
-    agent { docker { image 'apache' } }
+    environment {
+      registry = "docker_hub_account/mendelor"
+      registryCredential = 'docker-hub-credentials'
+    }
+    
+    agent any
+    
     stages {
-        stage('Pull image') {
-          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials')
-        }
         stage('build') {
             steps {
                 sh 'apache --version'
