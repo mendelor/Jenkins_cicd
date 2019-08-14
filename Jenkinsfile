@@ -1,16 +1,12 @@
 pipeline {
-    agent { docker { image 'httpd:2.4' } }
+    agent {
+        docker { image 'node:7-alpine' }
+    }
     stages {
-        stage('build') {
+        stage('Test') {
             steps {
-                sh 'httpd --version'
+                sh 'node --version'
             }
         }
-        stage('run') {
-            steps {
-                sh 'docker run -dit --name my-running-app -p 80:80 httpd:2.4'
-            }
-        }
-    
     }
 }
