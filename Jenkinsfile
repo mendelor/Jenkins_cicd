@@ -1,22 +1,11 @@
 node {
-    def app
+  stage 'Checkout'
+    git url: 'https://github.com/mendelor/Jenkins_cicd'
 
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
+  stage 'build'
+     docker.build('aaaaa')
 
-        checkout scm
-    }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("mendelor/jenkins123")
-    }
-
-    stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
-        }
-    }
+  stage 'deploy'
+  sh './deploy.sh'
+}
   
