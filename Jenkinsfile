@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("mendelor/nodeapp123")
+        app = docker.build("mendelor/jenkins")
     }
 
     stage('Test image') {
