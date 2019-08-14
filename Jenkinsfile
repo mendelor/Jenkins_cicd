@@ -4,8 +4,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker run -d -p 80:80 blahblahblah '
+                sh 'docker build -t blahbli . '
             }
         }
+        stage('run') {
+            steps { 
+                sh ' docker run -d -p 80:80 blahbli '
+          }
+       }
     }
 }
