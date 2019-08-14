@@ -7,7 +7,6 @@ pipeline {
                 echo "Build docker image"
                 script {
                     docker built -t aaa .
-                }
             }
         }
         stage('Run') {
