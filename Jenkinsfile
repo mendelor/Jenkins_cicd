@@ -1,8 +1,6 @@
 node {
-  stage 'Checkout'
-    git url: 'https://github.com/mendelor/Jenkins_cicd'
-  
-  stage 'deploy'
-  sh './deploy.sh'
+    checkout scm
+    def dockerfile = 'Dockerfile.test'
+    def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${dockerfile} ./dockerfiles") 
 }
   
