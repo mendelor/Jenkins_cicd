@@ -4,17 +4,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Build docker image"
-                script {
-                    docker built -t aaa .
+                echo 'Building..'
             }
         }
-        stage('Run') {
+        stage('Test') {
             steps {
-                echo "Run docker image"
-                script {
-                    docker run -d -p 80:80 aaa
-                }
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
