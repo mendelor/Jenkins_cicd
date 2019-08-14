@@ -1,6 +1,11 @@
-node {
-    checkout scm
-    def dockerfile = 'Dockerfile.test'
-    def customImage = docker.run("my-image:latest")
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'docker build -t blahblahblah .'
+            }
+        }
+    }
 }
-  
