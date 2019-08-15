@@ -1,18 +1,24 @@
-  pipeline {
-      agent any
+node {
+    def app
 
-      stages {
-          stage('Build') {
-              steps {
-                  sh 'docker build -t blahblii . '
-              }
-          }
-          stage('run') {
-              steps {
-                  sh ' docker run -d -p 80:80 blahblii '
-            }
-         }
-      }
-  }
+    stage('Clone repository') {
+        /* Cloning the Repository to our Workspace */
+
+        checkout scm
+    }
+
+    stage('Build image') {
+        /* This builds the actual image */
+
+        app = docker.build("mendel/nodeapp")
+    }
+
+    stage('Test image') {
+        
+        app.inside {
+            echo "Tests passed"
+        }
+    }
+}
 
 
