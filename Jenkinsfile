@@ -8,12 +8,12 @@ pipeline {
     stages {
          stage('Build') {
             steps {
-                sh 'docker build -t httpdddd . '
+                sh 'docker build -t httpdddd1 . '
                   }
                         }
         stage('run') {
             steps {
-                sh ' docker run -d -p 80:80 httpdddd '
+                sh ' docker run -d -p 80:80 httpdddd1 '
           }
        }
     }
