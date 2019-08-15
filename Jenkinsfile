@@ -1,18 +1,18 @@
   pipeline {
-      agent none
+      agent any
 
       stages {
           stage('Build') {
             agent {
-              docker { image 'php:apache' }
+              docker { image 'httpd:2.4' }
           }
             steps { 
-                sh 'docker build -t blahbliiasdasd . '
+                sh 'docker build -t apchi . '
               }
           }
           stage('run') {
               steps {
-                  sh ' docker run -d -p 80:80 blahbliiasdasd '
+                  sh ' docker run -d -p 80:80 apchi '
             }
          }
       }
