@@ -1,10 +1,11 @@
   pipeline {
-      agent any
+      agent none
 
       stages {
           stage('Build') {
-              steps {
-                agent { docker { image 'php:apache' } }  
+            agent { image 'php:apache' }
+          }
+            steps { 
                 sh 'docker build -t blahbliiasdasd . '
               }
           }
