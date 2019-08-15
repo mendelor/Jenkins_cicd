@@ -4,13 +4,22 @@
       stages {
           stage('Build') {
               steps {
-                  sh 'docker build -t blahblii . '
+                  sh 'docker build -t blahblii11 . '
               }
           }
           stage('run') {
               steps {
-                  sh ' docker run -d -p 80:80 blahblii '
+                  sh ' docker run -d -p 80:80 blahblii11 '
             }
          }
       }
+        
+            post {
+        always {
+            // Always cleanup after the build.
+            sh ' docker rmi -f blahblii11 '
+        }
+    }
   }
+
+
