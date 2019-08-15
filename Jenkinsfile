@@ -1,16 +1,20 @@
-  pipeline {
-      agent any
-
-      stages {
-          stage('Build') {
-              steps {
-                  sh 'docker build -t blahblii . '
-              }
+pipeline {
+    agent {
+         docker {
+                 image 'nginx:1.16.0'
+                }
           }
-          stage('run') {
-              steps {
-                  sh ' docker run -d -p 80:80 blahblii '
-            }
-         }
-      }
-  }
+               
+    stages {
+         stage('Build') {
+            steps {
+                sh 'docker build -t nginxtest . '
+                  }
+                        }
+        stage('run') {
+            steps {
+                sh ' docker run -d -p 80:80 nginxtest '
+          }
+       }
+    }
+}
