@@ -1,17 +1,11 @@
   pipeline {
       agent any
-
       stages {
           stage('Build') {
               steps {
-                  sh 'docker build -t blahblii . '
+                  sh 'docker build -t blahbliidsasd . '
               }
           }
-          stage('run') {
-              steps {
-                  sh ' docker run -d -p 80:80 blahblii '
-            }
-         }
       }
   }
     
