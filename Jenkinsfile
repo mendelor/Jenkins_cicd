@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh ' docker build -t abd . '
+                sh ' docker build -t abdc . '
             }
         }
     }
