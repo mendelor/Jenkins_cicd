@@ -4,12 +4,12 @@
           stage('Build') {
             agent {
               docker { 
-                image 'httpd:2.4' 
+                image 'php:apache' 
                 label 'mydocker'
               }
           }
             steps { 
-                sh 'docker build -t apchi123 . '
+                sh 'docker build -t apchi12345 . '
               }
           }
 
