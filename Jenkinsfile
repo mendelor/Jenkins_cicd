@@ -1,7 +1,7 @@
 pipeline {
     agent {
          docker {
-                 image 'nginx:latest'
+                 image 'nginx'
                 }
           }
                
