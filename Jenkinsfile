@@ -16,7 +16,7 @@ node {
      stage('run image') {
         /* This builds the actual image */
 
-        app = docker.run("mendel/nodeapp2")
+        app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")
     }
 
     stage('Test image') {
