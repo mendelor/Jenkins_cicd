@@ -10,7 +10,7 @@ pipeline {
          }
          stage('run') {
              steps {
-                 sh ' docker run -d -p 80:80 blahblii111 '
+                 sh ' docker run blahblii111 '
            }
         }
      }
