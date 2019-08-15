@@ -4,7 +4,7 @@
           stage('Build') {
             agent {
               docker { 
-                image 'php:apache' 
+                image 'php:7.2-cli' 
                 label 'mydocker'
               }
           }
