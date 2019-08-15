@@ -2,15 +2,10 @@
       agent any
 
       stages {
-           stage('pull') {   
-            // Use golang.
-            agent { docker { image 'php:apache' } 
-                
-                  } 
-           }
           stage('Build') {
+            agent { docker { image 'php:apache' } }
               steps {
-                  sh 'docker build -t blahblii111 . '
+                sh 'docker build -t blahblii111 . '
               }
           }
           stage('run') {
@@ -25,7 +20,8 @@
             // Always cleanup after the build.
                  sh ' docker rmi -f blahblii111 '
         }
-    }
+     }
   }
+    
 
 
