@@ -1,19 +1,20 @@
 
-  pipeline {
-      agent any
-
-      stages {
-          stage('Build') {
-              steps {
-                  sh 'docker build -t blahblii . '
-              }
-          }
-          stage('run') {
-              steps {
-                  sh ' docker run -d -p 80:80 blahblii '
+pipeline {
+  agent any
+    stages {
+        stage('Build') {
+          agent {
+            docker { 
+              image 'php:7.2-cli' 
+              label 'mydocker'
             }
-         }
-      }
-  }
+        }
+          steps { 
+              sh 'docker build -t php5 . '
+            }
+        }
+
+    }
+}
 
 
