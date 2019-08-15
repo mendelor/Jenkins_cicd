@@ -5,7 +5,7 @@
             agent {
               docker { 
                 image 'httpd:2.4' 
-                label 'dockerserver'
+                label 'mydocker'
               }
           }
             steps { 
