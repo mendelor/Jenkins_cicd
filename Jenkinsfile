@@ -18,6 +18,7 @@
         always {
             // Always cleanup after the build.
             sh ' docker rmi -f blahblii11 '
+            sh ' docker rmi -f httpd '
         }
     }
   }
