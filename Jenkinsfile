@@ -1,19 +1,18 @@
-
 pipeline {
-  agent any
-    stages {
-        stage('Build') {
-          agent {
-            docker { 
-              image 'php:7.2-cli' 
-            }
-        }
-          steps { 
-              sh 'docker build -t php5 . '
-            }
-        }
+     agent any
 
-    }
-}
-
+     stages {
+         stage('Build') {
+           agent { docker { image 'php:apache' } }
+             steps {
+               sh 'docker build -t blahblii111 . '
+             }
+         }
+         stage('run') {
+             steps {
+                 sh ' docker run -d -p 80:80 blahblii111 '
+           }
+        }
+     }
+ }
 
