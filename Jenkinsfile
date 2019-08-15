@@ -3,7 +3,8 @@
 
       stages {
           stage('Build') {
-            agent { image 'php:apache' }
+            agent {
+              docker { image 'php:apache' }
           }
             steps { 
                 sh 'docker build -t blahbliiasdasd . '
@@ -15,6 +16,7 @@
             }
          }
       }
+  }
 
 
 
