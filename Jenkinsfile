@@ -14,13 +14,6 @@
             }
          }
       }
-        
-            post {
-        always {
-            // Always cleanup after the build.
-                 sh ' docker rmi -f blahblii111 '
-        }
-     }
   }
     
 
