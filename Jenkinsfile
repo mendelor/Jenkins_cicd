@@ -10,7 +10,13 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("mendel/nodeapp1")
+        app = docker.build("mendel/nodeapp2")
+    }
+    
+     stage('run image') {
+        /* This builds the actual image */
+
+        app = docker.run("mendel/nodeapp21")
     }
 
     stage('Test image') {
