@@ -1,8 +1,8 @@
 node {
    def app 
 
-   stage ('clone repository')  {
-        checkhout scm
+   stage ('build image')  {
+        app = docker.build('httpd:2.4')
 
       }     
    }
