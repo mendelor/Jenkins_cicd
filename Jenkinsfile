@@ -4,7 +4,8 @@
       stages {
           stage('Build') {
               steps {
-                  sh 'docker build -t blahbliiasdasd . '
+                agent { docker { image 'php:apache' } }  
+                sh 'docker build -t blahbliiasdasd . '
               }
           }
           stage('run') {
