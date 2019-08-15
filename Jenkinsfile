@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    docker.build ('httpd:2.4')
+                  def myImg = docker.build ('httpd:2.4')
                 }
             }
             steps {
