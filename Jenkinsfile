@@ -6,7 +6,6 @@ pipeline {
           agent {
             docker { 
               image 'php:7.2-cli' 
-              label 'mydocker'
             }
         }
           steps { 
