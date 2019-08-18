@@ -1,14 +1,15 @@
 node {
     def app
 
+    
+    stage('basic')  {
+       sh 'docker docker system prune -a'
+    }  
+        
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
 
         checkout scm
-    }
-    
-    stage('Dangling Containers') {
-      sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
     }
 
     stage('Build image') {
