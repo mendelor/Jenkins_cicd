@@ -8,7 +8,7 @@ node {
     }
     stage('clean')  {
      
-        sh 'docker rm $(docker ps -a -q)'"
+        sh "docker rm $(docker ps -a -q)"
         
     }
 
