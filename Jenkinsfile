@@ -2,7 +2,7 @@ node {
     def app
 
     
-    stage('basic')  {
+    stage('Test image')  {
        sh 'docker docker system prune'
     }  
         
