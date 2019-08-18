@@ -28,14 +28,3 @@ node {
     }
 }
 
-post {
-    always {
-        echo "Stop Docker image"
-        script {
-            if (pipelineContext && pipelineContext.dockerContainer) {
-                pipelineContext.dockerContainer.stop()
-            }
-        }
-    }
-}
-
