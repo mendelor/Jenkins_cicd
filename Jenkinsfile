@@ -10,14 +10,13 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("mendel/nodeapp8902322")
+        app = docker.build("mendel/nodeapp11112")
     }
     
     stage('run image') {
         /* This builds the actual image */
 
-        app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-           echo "pngimage_build_${env.BUILD_NUMBER}"
+        app.withRun("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
     }
 
     stage('Test image') {
