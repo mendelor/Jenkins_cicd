@@ -9,7 +9,7 @@ node {
     
     stage('Remove Docker Containers') {
         
-      sh 'docker rm $(docker ps --all --quiet) || true'
+      sh 'docker rm -f $(docker ps --all --quiet) || true'
     
     }
 
