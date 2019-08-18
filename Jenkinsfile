@@ -13,7 +13,6 @@ node {
         
     }
     
-    
     stage('Remove Docker Containers') {
         
       sh 'docker rm -f $(docker ps --all --quiet) || true'
@@ -23,7 +22,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("mendel/nodeapp1235")
+        app = docker.build("mendel/nodeapp1")
     }
     
      stage('run image') {
