@@ -3,7 +3,7 @@ node {
 
     
     stage('basic')  {
-       sh 'docker docker system prune -a'
+       sh 'docker docker system prune'
     }  
         
     stage('Clone repository') {
