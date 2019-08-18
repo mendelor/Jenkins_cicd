@@ -6,10 +6,11 @@ node {
 
         checkout scm
     }
-    stage('clean')  {
-     
-        echo "docker rm $(docker ps -a -q)"
+    
+    stage('Remove Docker Containers') {
         
+      sh 'docker rm $(docker ps --all --quiet) || true'
+    
     }
 
     stage('Build image') {
