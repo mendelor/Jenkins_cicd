@@ -1,5 +1,15 @@
 node {
-    def app
+   def app
+    
+    stage('Remove Docker Containers') {
+        
+      sh 'docker rm -f $(docker ps --all --quiet) || true'
+    }
+    
+    stage('Remove Docker Images') {
+        
+      sh 'docker rmi -f $(docker images --quiet) || true'  
+    }
 
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
@@ -7,18 +17,6 @@ node {
         checkout scm
     }
     
-    stage('Remove Docker Images') {
-        
-      sh 'docker rmi -f $(docker images --quiet) || true'
-        
-    }
-    
-    stage('Remove Docker Containers') {
-        
-      sh 'docker rm -f $(docker ps --all --quiet) || true'
-    
-    }
-
     stage('Build image') {
         /* This builds the actual image */
 
@@ -35,6 +33,7 @@ node {
         
         app.inside {
             echo "Tests passed"
+            
         }
     }
 }
