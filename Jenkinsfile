@@ -27,4 +27,12 @@ node {
     }
 }
 
+post {
+    always {
+        script { 
+            receiver_container.stop()
+        }
+    }
+}
+
 
