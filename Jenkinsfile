@@ -7,6 +7,13 @@ node {
         checkout scm
     }
     
+    stage('Remove Docker Images') {
+        
+      sh 'docker rmi -f $(docker images --quiet) || true'
+        
+    }
+    
+    
     stage('Remove Docker Containers') {
         
       sh 'docker rm -f $(docker ps --all --quiet) || true'
@@ -33,8 +40,6 @@ node {
     }
 }
 
-    stage('Remove Docker Images') {
-      sh 'docker rmi -f $(docker images --quiet) || true'
-    }
+
 
 
