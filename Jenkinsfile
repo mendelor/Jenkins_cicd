@@ -3,7 +3,7 @@ node {
 
     
     stage('Test image')  {
-       sh 'docker system prune -y'
+       sh 'docker system prune --all'
     }  
         
     stage('Clone repository') {
