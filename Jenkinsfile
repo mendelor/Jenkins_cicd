@@ -1,11 +1,6 @@
 node {
     def app
-
-    
-    stage('Test image')  {
-       sh 'docker system prune --force'
-    }  
-        
+     
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
 
@@ -28,6 +23,17 @@ node {
         
         app.inside {
             echo "Tests passed"
+        }
+    }
+}
+
+post {
+    always {
+        echo "Stop Docker image"
+        script {
+            if (pipelineContext && pipelineContext.dockerContainer) {
+                pipelineContext.dockerContainer.stop()
+            }
         }
     }
 }
