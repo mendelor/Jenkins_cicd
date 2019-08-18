@@ -6,11 +6,15 @@ node {
 
         checkout scm
     }
+    
+    stage('Dangling Containers') {
+      sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
+    }
 
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("mendel/nodeapp7")
+        app = docker.build("mendel/nodeapp89")
     }
     
     stage('run image') {
@@ -26,10 +30,4 @@ node {
         }
     }
 }
-post {
-        always {
-            script { 
-                receiver_container.stop()
-            }
-        }
-    }
+
