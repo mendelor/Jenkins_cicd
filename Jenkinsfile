@@ -17,7 +17,7 @@ node {
         /* This builds the actual image */
 
         app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-        echo ${env.BUILD_NUMBER}
+        sh 'echo ${env.BUILD_NUMBER}'
     }
 
     stage('Test image') {
