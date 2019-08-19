@@ -7,17 +7,32 @@ pipeline {
 
     stages {
         stage('Remove Docker Containers') {
-            steps {
+           steps {
                 sh 'docker rm -f $(docker ps --all --quiet) || true'
-            }
+           }
         }
-            stage('Build image') {
+
+        stage('Remove Docker Images') {
+           steps {
+                sh 'docker rmi -f $(docker images --quiet) || true'
+           }
+        }
+        
+           stage('Build image') {
                 steps {
                     script {
                     dockerImage  = docker.build("mendel/nodeapp1")
                     }
                 }
             }
-}
-}
 
+            stage('Run image') {
+                 steps {
+                     script {
+                     dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+                     }
+                 }
+             }
+            
+     }
+}
