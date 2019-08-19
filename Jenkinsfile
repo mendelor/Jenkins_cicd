@@ -1,8 +1,7 @@
-
 pipeline {
-agent any
+ agent any
 
-environment {
+ environment {
     PASS = credentials('dockerhub_pass')
 }
 
@@ -24,27 +23,25 @@ stages {
                 script {
                 dockerImage  = docker.build("mendel/nodeapp1")
                 }
-            }
-        }
+             }
+          }
 
         stage('Run image') {
              steps {
                  script {
                  dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-                 }
+                }
              }
-         }
+          }
 
          stage('Test image') {
              steps {
                  script {
                 dockerImage.inside {
                      echo "Tests passed"
-                 }
+                }
              }
-         }
-
-         
-        }
+          }
+       }
     }
-}  
+ }  
