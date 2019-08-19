@@ -8,13 +8,17 @@ pipeline {
     
     stages {
         stage('Remove Docker Containers') {
+            steps {
+            
             sh 'docker rm -f $(docker ps --all --quiet) || true'
-
+              }
            }
           
         stage('Remove Docker Images') {
+            steps {
              sh 'docker rmi -f $(docker images --quiet) || true'
            }
+        }
 
            stage('Build') {
                steps {
