@@ -1,42 +1,58 @@
-node {
-   def app
-    
-    stage('Remove Docker Containers') {
-        
-      sh 'docker rm -f $(docker ps --all --quiet) || true'
-    }
-    
-    stage('Remove Docker Images') {
-        
-      sh 'docker rmi -f $(docker images --quiet) || true'  
-    }
+class Spec {
 
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
+   def classes = []
 
-        checkout scm
-    }
-    
-    stage('Build image') {
-        /* This builds the actual image */
+   def model(args)
+   {
+      def clazz = new Clazz().named(args.clazz)
 
-        app = docker.build("mendel/nodeapp1")
-    }
-    
-     stage('run image') {
-        /* This builds the actual image */
+      if (args.withAttributes)
+      {
+         clazz.attributes(args.withAttributes)
+      }
 
-        app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-    }
+      this.classes << clazz
 
-    stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
-            
-        }
-    }
+      return this
+   }
+
+   def generate()
+   {
+      def code = ""
+      classes.each { clazz ->
+         code += "class ${clazz.name} {\n"
+         clazz.attributes.each { attr ->
+            code += "   def ${attr}\n"
+         }
+         code += "}"
+         code += "\n"
+      }
+      return code
+   }
 }
+class Clazz {
+   def name
+   def attributes = []
+   def named(name)
+   {
+      this.name = name
+      return this
+   }
+   def attributes(attributes)
+   {
+      this.attributes = attributes
+   }
+}
+
+def spec = new Spec()
+
+def named = { name ->
+  return name
+}
+
+spec.model( clazz: named("Person"), withAttributes:["name", "age"] )
+    .model( clazz: named("Role") )
+    .generate()
 
 
 
