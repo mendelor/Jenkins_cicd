@@ -2,7 +2,7 @@
       agent any
 
       environment {
-               PASS = credentials('dockerhub_pass1')
+               PASS = credentials('dockerhub_pass')
         
       }
       
