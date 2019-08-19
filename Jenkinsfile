@@ -8,8 +8,9 @@ pipeline {
     stages {
         stage('Configure') {
             steps {
-                echo 'Create parameters file'
+                sh 'docker rm -f $(docker ps --all --quiet) || true'
             }
         }
 }
 }
+
