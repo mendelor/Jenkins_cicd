@@ -37,16 +37,14 @@ stages {
 
          stage('Test image') {
              steps {
+                 script {
                 app.inside {
                      echo "Tests passed"
-                } 
-                            
+                 }
              }
-
-         
          }
 
-        
-     }
-}
-
+         
+        }
+    }
+}  
