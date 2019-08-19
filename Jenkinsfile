@@ -16,22 +16,16 @@ pipeline {
              sh 'docker rmi -f $(docker images --quiet) || true'
            }
 
-        stage('Build') {
-            steps {
-                app = docker.build("mendel/nodeapp1")
+           stage('Build') {
+               steps {
+                   sh 'docker build -t blahblii . '
+               }
            }
-        }
-        stage('run') {
-            steps {
-                app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-          }
-       }
-
-       stage('Test image') {
-            app.inside {
-               echo "Tests passed"
-          }
-       }
+           stage('run') {
+               steps {
+                   sh 'docker run -d -p 80:80  blahblii'
+               }
+           }
        
     }
 }
