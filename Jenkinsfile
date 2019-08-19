@@ -38,7 +38,7 @@ stages {
          stage('Test image') {
              steps {
                  script {
-                app.inside {
+                dockerImage.inside {
                      echo "Tests passed"
                  }
              }
