@@ -22,12 +22,12 @@ pipeline {
 
            stage('Build') {
                steps {
-                   sh 'docker build -t blahblii . '
+                   app = docker.build("mendel/nodeapp1")
                }
            }
            stage('run') {
                steps {
-                   sh 'docker run -d -p 80:80  blahblii'
+                   app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
                }
            }
        
