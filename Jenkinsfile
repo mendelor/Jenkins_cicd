@@ -13,7 +13,9 @@ pipeline {
         }
             stage('Build image') {
                 steps {
-                    app = docker.build("mendel/nodeapp1")
+                    script {
+                    dockerImage  = docker.build("mendel/nodeapp1")
+                    }
                 }
             }
 }
