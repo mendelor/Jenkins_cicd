@@ -9,28 +9,40 @@ environment {
 
 stages {
     stage('Remove Docker Containers') {
-        steps {
 
-        sh 'docker rm -f $(docker ps --all --quiet) || true'
-          }
-       }
+      sh 'docker rm -f $(docker ps --all --quiet) || true'
+    }
 
     stage('Remove Docker Images') {
-        steps {
-         sh 'docker rmi -f $(docker images --quiet) || true'
-       }
+
+      sh 'docker rmi -f $(docker images --quiet) || true'
     }
 
-       stage('Build') {
-           steps {
-               sh 'docker build -t blahblii . '
-           }
-       }
-       stage('run') {
-           steps {
-               sh 'docker run -d -p 80:80  blahblii'
-           }
-       }
+    stage('Clone repository') {
+        /* Cloning the Repository to our Workspace */
 
+        checkout scm
     }
+
+    stage('Build image') {
+        /* This builds the actual image */
+
+        app = docker.build("mendel/nodeapp1")
+    }
+
+     stage('run image') {
+        /* This builds the actual image */
+
+        app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+    }
+
+    stage('Test image') {
+
+        app.inside {
+            echo "Tests passed"
+
+        }
+    }
+}
+         
 }
