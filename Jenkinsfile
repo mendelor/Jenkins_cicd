@@ -1,13 +1,6 @@
-
 pipeline {
-agent any
+ agent any
 
-environment {
-         PASS = credentials('dockerhub_pass')
-
-}
-
-stages {
     stage('Remove Docker Containers') {
 
       sh 'docker rm -f $(docker ps --all --quiet) || true'
@@ -43,6 +36,4 @@ stages {
 
         }
     }
-}
-         
 }
