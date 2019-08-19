@@ -1,17 +1,22 @@
   pipeline {
       agent any
 
+      environment {
+               PASS = credentials('dockerhub_pass1')
+        
+      }
+      
       stages {
           stage('Build') {
               steps {
-                  sh 'docker rm -f $(docker ps --all --quiet) || true'
+                  sh 'docker build -t blahblii121 . '
               }
           }
           stage('run') {
               steps {
-                  sh 'docker rmi -f $(docker images --quiet) || true'
+                  sh ' docker run -d -p 80:80 blahblii121 '
             }
          }
       }
-  }  jhjhj
+  }
 
