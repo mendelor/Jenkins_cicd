@@ -5,7 +5,7 @@ pipeline {
      stage('Build image') {
         steps {
             script {
-            dockerImage  = docker.build("mendel/nodeapp1")
+            dockerImage  = docker.build("mendel/nodeapp2")
             }
          }
       }    
@@ -14,8 +14,6 @@ pipeline {
         
                input message: 'Approve PRODUCTION Deployment?'
        
-
-             build job: 'Deploy to Prod'
             }
             post { 
                   success {
