@@ -2,19 +2,16 @@ pipeline {
   agent any
 
    stages {
-    stage('Build') {
-       steps {
-            sh 'mvn clean package'
-       }
-       post {
-          success {
-            echo 'Now Archiving...'
-          }
-       } 
-    }      
+     stage('Build image') {
+        steps {
+            script {
+            dockerImage  = docker.build("mendel/nodeapp1")
+            }
+         }
+      }    
     stage('Deploy to Production') {
        steps {
-            timeout(time:5, unit:'DAYS'){
+            timeout(time:5, unit:'Days'){
                input message: 'Approve PRODUCTION Deployment?'
             }
 
@@ -23,7 +20,7 @@ pipeline {
             post { 
                   success {
 
-                   echo 'Code deployed'                 
+                   echo 'Code deployed'                  
                   }
                   failure {
                    echo 'Deployment failed'
