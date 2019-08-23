@@ -1,47 +1,34 @@
 pipeline {
- agent any
+  agent any
 
- environment {
-    PASS = credentials('dockerhub_pass')
-}
-
-stages {
-    stage('Remove Docker Containers') {
+   stages {
+    stage('Build') {
        steps {
-            sh 'docker rm -f $(docker ps --all --quiet) || true'
+            sh 'mvn clean package'
        }
-    }
-
-    stage('Remove Docker Images') {
+       post {
+          success {
+            echo 'Now Archiving...'
+          }
+       } 
+    }      
+    stage('Deploy to Production') {
        steps {
-            sh 'docker rmi -f $(docker images --quiet) || true'
-       }
-    }
-    
-       stage('Build image') {
-            steps {
-                script {
-                dockerImage  = docker.build("mendel/nodeapp1")
-                }
-             }
-          }
+            timeout(time:5, unit:'Days'){
+               input message: 'Approve PRODUCTION Deployment?'
+            }
 
-        stage('Run image') {
-             steps {
-                 script {
-                 dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-                }
-             }
-          }
+             build job: 'Deploy to Prod'
+            }
+            post { 
+                  success {
 
-         stage('Test image') {
-             steps {
-                 script {
-                dockerImage.inside {
-                     echo "Tests passed"
-                }
-             }
+                   echo 'Code deployed                   
+                  }
+                  failure {
+                   echo 'Deployment failed'
+              }
+            }      
           }
        }
     }
- }  
