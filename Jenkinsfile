@@ -17,9 +17,6 @@ pipeline {
   }
          
      stage('Publish') {
-       when {
-         branch 'master'
-       }
        steps {
          withDockerRegistry([ 'https://index.docker.io/v1/', 'docker-hub-credentials' ]) {
          sh 'docker push mendelor/nodeapp1'
