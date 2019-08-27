@@ -18,12 +18,12 @@ stages {
 
        stage('Build') {
            steps {
-               sh 'docker build -t blahblii12 . '
+               sh 'docker build -t blahblii123 .'
            }
        }
        stage('run') {
            steps {
-               sh 'docker run -d -p 80:80  blahblii12'
+               sh 'docker run -d -p 80:80  blahblii123'
            }
        }
 
