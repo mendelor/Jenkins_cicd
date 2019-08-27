@@ -1,28 +1,33 @@
-pipeline {
-  agent any
-   stages {
-     stage('Initialize') {
-       steps { 
-         echo 'Starting the Pipeline'
-         sh 'docker rm -f $(docker ps --all --quiet) || true'
-         sh 'docker rmi -f $(docker images --quiet) || true'
-      }
-    }  
-     stage('Build') {
-       steps {
-        script {
-         dockerImage  = docker.build("mendel/nodeapp1")
-        }
-     }
-  }
+node {
+    def app
 
-     stage('Run image') {
-       steps {
-        script {
-         dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+    stage('Clone repository') {
+        /* Cloning the Repository to our Workspace */
 
-          }
+        checkout scm
+    }
+
+    stage('Build image') {
+        /* This builds the actual image */
+
+        app = docker.build("mendelor/jenkins")
+    }
+
+    stage('Test image') {
+
+        app.inside {
+            echo "Tests passed"
         }
-      }           
-   }
+    }
+
+    stage('Push image') {
+        /*
+			You would need to first register with DockerHub before you can push images to your account
+		*/
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+            }
+                echo "Trying to Push Docker Build to DockerHub"
+    }
 }
