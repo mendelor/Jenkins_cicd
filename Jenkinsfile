@@ -1,32 +1,32 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
-    }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("mendelor/jenkinspush123456")
-    }
-
-    stage('Test image') {
-
-        app.inside {
-            echo "Tests passed"
+ pipeline {
+ agent any
+   stages {
+     stage('Initialize') {
+       steps { 
+         echo 'Starting the Pipeline'
+         sh 'docker rm -f $(docker ps --all --quiet) || true'
+         sh 'docker rmi -f $(docker images --quiet) || true'
+      }
+    }  
+     stage('Build image') {
+       steps {
+        script {
+         dockerImage  = docker.build("mendelor/nodeapp6698")
         }
-    }
+     }
+  }
+     stage('Run image') {
+       steps {
+        script {
+        dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+    
+         }
+       }
+     }  
 
-    stage('Push image') {
-        /*
-			You would need to first register with DockerHub before you can push images to your account
-		*/
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            }
-                echo "Trying to Push Docker Build to DockerHub"
-    }
-}
+     stage('Push image') {
+      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+          app.push("${env.BUILD_NUMBER}")
+          }
+              echo "Trying to Push Docker Build to DockerHub"
+  }
