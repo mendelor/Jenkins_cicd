@@ -26,7 +26,7 @@ pipeline {
 
      stage('Push image') {
        steps {
-      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+       withDockerRegistry(['https://registry.hub.docker.com', 'docker-hub-credentials' ]) {
           app.push("${env.BUILD_NUMBER}")
           }
               echo "Trying to Push Docker Build to DockerHub"
