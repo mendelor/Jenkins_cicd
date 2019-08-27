@@ -27,10 +27,12 @@ pipeline {
      stage('Push image') {
        steps {
        withDockerRegistry(['https://registry.hub.docker.com', 'docker-hub-credentials' ]) {
-          dockerImage.push("${env.BUILD_NUMBER}")
+        script {  
+        dockerImage.push("${env.BUILD_NUMBER}")
           }
               echo "Trying to Push Docker Build to DockerHub"
        }
     }
  }
+}
 }
