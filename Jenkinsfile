@@ -22,7 +22,7 @@ pipeline {
        }
        steps {
          withDockerRegistry([ 'https://registry.example.com', 'docker-hub-credentials' ]) {
-         sh 'docker push mendelor/nodeapp1:latest'
+         sh 'docker push mendelor/nodeapp1'
 
         }
       }
