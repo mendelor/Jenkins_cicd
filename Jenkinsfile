@@ -21,7 +21,7 @@ pipeline {
          branch 'master'
        }
        steps {
-         withDockerRegistry([ 'https://registry.example.com', 'docker-hub-credentials' ]) {
+         withDockerRegistry([ 'https://index.docker.io/v1/', 'docker-hub-credentials' ]) {
          sh 'docker push mendelor/nodeapp1'
 
         }
