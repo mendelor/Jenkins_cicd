@@ -15,16 +15,7 @@ pipeline {
         }
      }
   }
-
-     stage('Run image') {
-       steps {
-        script {
-         dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-
-          }
-        }
-      }           
-
+         
      stage('Publish') {
        when {
          branch 'master'
