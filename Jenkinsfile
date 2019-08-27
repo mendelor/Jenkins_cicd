@@ -1,31 +1,29 @@
 pipeline {
-agent any
-
-
-stages {
-    stage('Remove Docker Containers') {
-        steps {
-
-        sh 'docker rm -f $(docker ps --all --quiet) || true'
-          }
-       }
-
-    stage('Remove Docker Images') {
-        steps {
+  agent any
+   stages {
+     stage('Initialize') {
+       steps { 
+         echo 'Starting the Pipeline'
+         sh 'mvn clean'
+         sh 'docker rm -f $(docker ps --all --quiet) || true'
          sh 'docker rmi -f $(docker images --quiet) || true'
-       }
-    }
+      }
+    }  
+     stage('Build') {
+       steps {
+        script {
+         dockerImage  = docker.build("mendel/nodeapp1")
+        }
+     }
+  }
 
-       stage('Build') {
-           steps {
-               sh 'docker build -t blahblii1234 .'
-           }
-       }
-       stage('run') {
-           steps {
-               sh 'docker run -d -p 80:80  blahblii1234'
-           }
-       }
+     stage('Run image') {
+       steps {
+        script {
+         dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
 
-    }
+          }
+        }
+      }           
+   }
 }
