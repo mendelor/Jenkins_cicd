@@ -19,7 +19,7 @@ pipeline {
      stage('Publish') {
        steps {
          withDockerRegistry([ 'https://index.docker.io/v1/', 'docker-hub-credentials' ]) {
-         sh 'docker push mendelor/nodeapp1'
+         sh 'docker push mendelor/nodeapp1:latest'
 
         }
       }
