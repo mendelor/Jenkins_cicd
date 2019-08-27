@@ -4,7 +4,6 @@ pipeline {
      stage('Initialize') {
        steps { 
          echo 'Starting the Pipeline'
-         sh 'mvn clean'
          sh 'docker rm -f $(docker ps --all --quiet) || true'
          sh 'docker rmi -f $(docker images --quiet) || true'
       }
