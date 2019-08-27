@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("mendelor/jenkinspush")
+        app = docker.build("mendelor/jenkinspush123456")
     }
 
     stage('Test image') {
@@ -26,7 +26,6 @@ node {
 		*/
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
             }
                 echo "Trying to Push Docker Build to DockerHub"
     }
