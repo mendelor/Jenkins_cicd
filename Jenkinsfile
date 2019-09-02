@@ -27,7 +27,7 @@ pipeline {
          stage('Approval') {
             steps {
              input {
-                message "Should we continue?"
+                sh 'Should we continue?'
               }
            }
         }
