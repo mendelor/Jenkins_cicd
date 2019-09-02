@@ -1,5 +1,8 @@
 pipeline {
      agent any
+       options {
+        timeout(time: 1, unit: 'Minutes')
+            
        stages {
          stage('Cleanup') {
            steps {
