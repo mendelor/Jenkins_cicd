@@ -24,11 +24,13 @@ pipeline {
         }
      }
 
-         stage('Approval') {  
-           input {
-              message "Should we continue?"   
-            }
-         }
+         stage('Approval') {
+            steps {
+             input {
+                message "Should we continue?"
+              }
+           }
+        }
 
          stage('Run image') {
            steps {
