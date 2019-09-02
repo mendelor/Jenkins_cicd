@@ -1,28 +1,42 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
-    }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("mendel/nodeapp3")
-    }
-
-     stage('run image') {
-        /* This builds the actual image */
-
-        app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")
-    }
-
-    stage('Test image') {
-
-        app.inside {
-            echo "Tests passed"
+pipeline {
+     agent any
+       stages {
+         stage('Cleanup') {
+           steps {
+             echo 'Starting the Pipeline'
+             sh 'docker rm -f $(docker ps --all --quiet) || true'
+             sh 'docker rmi -f $(docker images --quiet) || true'
+          }
         }
+         stage('Build image') {
+           steps {
+            script {
+             dockerImage  = docker.build("mendelor/nodeapp6698")
+            }
+         }
+      }
+
+         stage('Test') {
+           steps {
+            script {
+             sh 'docker images'
+           }
+        }
+     }
+
+         stage('Approval') {  
+           input {
+              message "Should we continue?"   
+            }
+         }
+
+         stage('Run image') {
+           steps {
+            script {
+            dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+
+             }
+          }
+       }
     }
-}
+ }
