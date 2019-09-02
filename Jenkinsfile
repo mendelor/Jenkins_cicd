@@ -25,12 +25,14 @@ pipeline {
      }
 
          stage('Approval') {
-            steps {
              input {
-                sh 'Should we continue?'
+                message 'Should we continue?'
+              }
+           steps { 
+              echo 'Deploying'
+               
               }
            }
-        }
 
          stage('Run image') {
            steps {
