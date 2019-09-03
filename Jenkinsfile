@@ -19,7 +19,7 @@
          stage('Build image') {
            steps {
             script {
-             dockerImage  = docker.build("mendelor/nodeapp66987")
+             dockerImage  = docker.build("mendelor/nodeapp6698")
             }
          }
       }
