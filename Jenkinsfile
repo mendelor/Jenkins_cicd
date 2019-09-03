@@ -1,4 +1,4 @@
-  pipeline {
+pipeline {
      agent any
        options {
         timeout(time: 3, unit: 'MINUTES')
@@ -7,13 +7,8 @@
          stage('Cleanup') {
            steps {
              echo 'Starting the Pipeline'
-             sh """
-               docker ps -a \
-                 | awk '{ print \$1,\$2 }' \
-                 | grep imagename \
-                 | awk '{print \$1 }' \
-                 | xargs -I {} docker rm -f {}
-               """
+             sh 'docker rm -f $(docker ps --all --quiet) || true'
+             sh 'docker rmi -f $(docker images --quiet) || true'
           }
         }
          stage('Build image') {
@@ -36,13 +31,13 @@
              input {
                 message 'Should we continue?'
               }
-           steps { 
+           steps {
               echo 'Deploying'
-               
+
               }
            }
 
-         stage('Deploy Prod') {
+         stage('Run image') {
            steps {
             script {
             dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
