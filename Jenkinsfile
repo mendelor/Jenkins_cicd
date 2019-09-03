@@ -1,4 +1,4 @@
-pipeline {
+  pipeline {
      agent any
        options {
         timeout(time: 3, unit: 'MINUTES')
@@ -7,8 +7,13 @@ pipeline {
          stage('Cleanup') {
            steps {
              echo 'Starting the Pipeline'
-             sh 'docker rm -f $(docker ps --all --quiet) || true'
-             sh 'docker rmi -f $(docker images --quiet) || true'
+             sh """
+               docker ps -a \
+                 | awk '{ print \$1,\$2 }' \
+                 | grep imagename \
+                 | awk '{print \$1 }' \
+                 | xargs -I {} docker rm -f {}
+               """
           }
         }
          stage('Build image') {
