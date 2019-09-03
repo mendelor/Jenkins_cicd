@@ -42,7 +42,7 @@
               }
            }
 
-         stage('Run image') {
+         stage('Deploy Prod') {
            steps {
             script {
             dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
