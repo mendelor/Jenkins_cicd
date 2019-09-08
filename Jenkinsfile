@@ -10,7 +10,7 @@ pipeline {
     }
      stage('Build image') {
        steps {
-         sh 'docker service create --replicas 2 -p 80:80 --name serviceName1 nginx'
+         sh 'docker service create --replicas 3 -p 80:80 --name serviceName1 nginx'
       }
     }
   }
