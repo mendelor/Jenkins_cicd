@@ -4,7 +4,6 @@ pipeline {
      stage('Initialize') {
        steps {
          echo 'Starting the Pipeline'
-         sh 'docker rm -f $(docker ps --all --quiet) || true'
          sh 'docker rmi -f $(docker images --quiet) || true'
          sh 'docker service rm $(docker service ls -q)'
       }
