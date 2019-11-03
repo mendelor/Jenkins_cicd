@@ -1,15 +1,17 @@
 node {
     def app
-
             stage('Clone repository') {
                checkout scm  
             }
 
             stage('build image') {
 
-                  dockerImage = docker.build("getintodevops/hellonode1")
+              app = docker.build("getintodevops/hellonode1")   
+            }
 
-                 
-             }
-           }
-
+            stage('Test image') {
+               app.inside {
+                 sh 'echo "Tests passed"'
+                 }      
+            }
+     }
