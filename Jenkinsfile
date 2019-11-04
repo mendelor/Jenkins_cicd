@@ -4,9 +4,8 @@ node {
                checkout scm  
             }
 
-            stage('build image') {
-
-              app = docker.build("getintodevops/hellonode2")   
+            stage('Build image') {
+               app = docker.build("getintodevops/hellonode12")   
             }
 
             stage('Test image') {
@@ -14,4 +13,11 @@ node {
                  sh 'echo "Tests passed"'
                  }      
             }
-     }
+            stage('Push image') {
+             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+               app.push("${env.BUILD_NUMBER}")
+               app.push("latest")
+               
+                 }      
+            }
+   }
