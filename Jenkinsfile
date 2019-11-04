@@ -1,23 +1,8 @@
-node {
-    def app
-            stage('Clone repository') {
-               checkout scm  
-            }
+pipeline {
+    agent { docker 'maven:3.5-alpine' }
+    stages {
+        stage('examle build')  {
+          steps  {
+            sh 'mvn --version'
 
-            stage('Build image') {
-               app = docker.build("mendelor/hellonode123")   
-            }
-
-            stage('Test image') {
-               app.inside {
-                 sh 'echo "Tests passed"'
-                 }      
-            }
-            stage('Push image') {
-             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-               app.push("${env.BUILD_NUMBER}")
-               app.push("latest")
-               
-                 }      
-            }
-   }
+            } }}}
