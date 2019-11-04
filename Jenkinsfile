@@ -5,7 +5,7 @@ node {
             }
 
             stage('Build image') {
-               app = docker.build("getintodevops/hellonode12")   
+               app = docker.build("mendelor/hellonode123")   
             }
 
             stage('Test image') {
