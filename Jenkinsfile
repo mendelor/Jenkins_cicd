@@ -1,21 +1,15 @@
-pipeline {
-  environment {
-    registry = "mendelor/hellonode123"
-    registryCredential = ‘docker-hub-credentials’
-  }
-  agent any
-  stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/mendelor/Jenkins_cicd'
-      }
-    }
-    stage('Building image') {
-      steps{
-        script {
-          docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
-    }
-  }
-}
+   pipeline {
+        agent any
+          options {
+           timeout(time: 3, unit: 'MINUTES')
+          }
+          stages {
+            stage('Cleanup') {
+              steps {
+                echo 'Starting the Pipeline'
+                sh 'docker rm -f $(docker ps --all --quiet) || true'
+                sh 'docker rmi -f $(docker images --quiet) || true'
+             }
+           }  
+
+         }}
