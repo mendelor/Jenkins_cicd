@@ -21,9 +21,11 @@ pipeline {
            }
         }
      }
-
+     stage('remove image')  {
+       steps  {
+         sh 'docker rmi $registry:$BUILD_NUMBER'
              }
-          }
+          }}}}
   
      
 
