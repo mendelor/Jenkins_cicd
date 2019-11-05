@@ -24,7 +24,7 @@ pipeline {
      stage('remove image')  {
        steps  {
          sh 'docker rmi $env.$BUILD_NUMBER'
-             }
+             
           }}}}
   
      
