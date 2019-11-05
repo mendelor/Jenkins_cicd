@@ -9,7 +9,7 @@ pipeline {
          stage('Build image') {
            steps {
             script {
-             dockerImage  = docker.build("mendelor/nodeapp66878788898")
+             dockerImage  = docker.build registry + ":$BUILD_NUMBER"
             }
          }
       }
