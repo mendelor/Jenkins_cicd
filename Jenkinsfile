@@ -17,7 +17,7 @@ pipeline {
          stage('Test') {
            steps {
             script {
-             "docker rmi $registry:$BUILD_NUMBER"
+             sh "docker rmi $registry:$BUILD_NUMBER"
            }
         }
      }
