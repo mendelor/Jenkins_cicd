@@ -11,7 +11,7 @@
      stage("Build")  {
          steps  {
              script {
-              dockerImage  = docker.build("mendelor/22222")
+              dockerImage  = docker.build("mendelor/222322")
 
             }}
      
