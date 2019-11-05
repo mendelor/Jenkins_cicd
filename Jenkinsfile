@@ -1,8 +1,4 @@
 pipeline {
- environment {
-   registry = "mendelor/aaaa"
-   registryCredential = 'docker-hub-credentials'
- }
  agent any
  stages {
    stage('Cloning Git') {
