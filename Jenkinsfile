@@ -11,6 +11,13 @@
      stage("Build")  {
          steps  {
              script {
-              dockerImage  = docker.build("mendelor/nodeapp6698")
+              dockerImage  = docker.build("mendelor/2222")
 
-            }}}}}
+            }}
+     
+     
+            stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registry:$BUILD_NUMBER"
+     
+          }}}}}}
