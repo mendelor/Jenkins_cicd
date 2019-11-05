@@ -9,7 +9,7 @@ pipeline {
          stage('Build image') {
            steps {
             script {
-             dockerImage  = docker.build("mendelor/nodeapp66998988998")
+             dockerImage  = docker.build("mendelor/nodeapp6699888988998")
             }
          }
       }
@@ -24,7 +24,7 @@ pipeline {
      stage('remove image')  {
        steps  {
             script {
-         sh 'docker rmi ${env.BUILD_NUMBER}'
+         sh "dockerImage rmi ${env.BUILD_NUMBER}"
              
             }}}}}
   
