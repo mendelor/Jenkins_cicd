@@ -1,21 +1,31 @@
 pipeline {
   agent any
-    stages {
-        stage('Build') {
-          agent {
-            docker {
-              image 'php:7.2-cli'
-              label 'mydocker'
-            }
-        }
-          steps {
-              sh 'docker build -t apchi12345 . '
-            }
-        }
-
+   stages {
+     stage('Initialize') {
+       steps {
+         echo 'Starting the Pipeline'
+         sh 'docker rm -f $(docker ps --all --quiet) || true'
+         sh 'docker rmi -f $(docker images --quiet) || true'
+      }
     }
+     stage('Build') {
+       steps {
+        script {
+         dockerImage  = docker.build("mendel/nodeapp1")
+        }
+     }
+  }
+
+     stage('Run image') {
+       steps {
+        script {
+         dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+
+          }
+        }
+      }
+   }
 }
-     
 
      
           
