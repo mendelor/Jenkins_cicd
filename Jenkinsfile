@@ -9,7 +9,7 @@ pipeline {
          stage('Build image') {
            steps {
             script {
-             dockerImage  = docker.build("mendelor/nodeapp66998988998")
+             dockerImage  = docker.build("mendelor/nodeapp669989889981")
             }
          }
       }
