@@ -1,31 +1,14 @@
 pipeline {
-  agent any
-   stages {
-     stage('Initialize') {
-       steps {
-         echo 'Starting the Pipeline'
-         sh 'docker rm -f $(docker ps --all --quiet) || true'
-         sh 'docker rmi -f $(docker images --quiet) || true'
-      }
-    }
-     stage('Build') {
-       steps {
-        script {
-         dockerImage  = docker.build("mendel/nodeapp12345")
-        }
-     }
-  }
-
-     stage('Run image') {
-       steps {
-        script {
-         dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-
-          }
-        }
-      }
-   }
-}
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+              echo 'Building..'
+              script {
+                build job: 'test_job', parameters: [
+                [$class: 'LabelParameterValue', name: 'node', label: "${env.NODE_NAME}" ]
+                ]
+}}}}}
 
      
           
