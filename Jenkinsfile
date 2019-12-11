@@ -2,7 +2,7 @@ pipeline {
     agent none
 
     stages {
-        stage('Build') {
+        stage('Clean') {
             agent { label 'linux' }
             steps {
                 echo 'Starting the Pipeline'
@@ -10,15 +10,14 @@ pipeline {
                 sh 'docker rmi -f $(docker images --quiet) || true'
             }
         }
-    }
-
+   
         stage('Build') {
             agent { label 'linux' }
             steps {
             script {
             dockerImage  = docker.build("mendel/nodeapp12345")
+            }
          }
       }
-   }
-}   
-          
+   }   
+}
