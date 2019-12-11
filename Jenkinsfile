@@ -1,30 +1,22 @@
 pipeline {
-  agent {'linux'}
-   stages {
-     stage('Initialize') {
-       steps {
-         echo 'Starting the Pipeline'
-         sh 'docker rm -f $(docker ps --all --quiet) || true'
-         sh 'docker rmi -f $(docker images --quiet) || true'
-      }
+    agent none
+
+    stages {
+        stage('Build') {
+            agent { label 'linux' }
+            steps {
+                echo 'Building..'
+                sh '''
+                '''
+            }
+        }
     }
-     stage('Build') {
-       steps {
-        script {
-         dockerImage  = docker.build("mendel/nodeapp12345")
-        }
-     }
-  }
 
-     stage('Run image') {
-       steps {
-        script {
-         dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-
-          }
+    post {
+        success {
+            echo 'This will run only if successful'
         }
-      }
-   }
+    }
 }
      
           
