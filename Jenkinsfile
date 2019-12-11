@@ -12,11 +12,12 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo 'This will run only if successful'
-        }
-    }
-}
-     
+     stage('Build') {
+       steps {
+        script {
+         dockerImage  = docker.build("mendel/nodeapp12345")
+         }
+      }
+   }
+}   
           
