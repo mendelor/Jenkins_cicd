@@ -12,10 +12,11 @@ pipeline {
         }
     }
 
-     stage('Build') {
-       steps {
-        script {
-         dockerImage  = docker.build("mendel/nodeapp12345")
+        stage('Build') {
+            agent { label 'linux' }
+            steps {
+            script {
+            dockerImage  = docker.build("mendel/nodeapp12345")
          }
       }
    }
