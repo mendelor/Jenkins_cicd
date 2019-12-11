@@ -5,9 +5,9 @@ pipeline {
         stage('Build') {
             agent { label 'linux' }
             steps {
-                echo 'Building..'
-                sh '''
-                '''
+                echo 'Starting the Pipeline'
+                sh 'docker rm -f $(docker ps --all --quiet) || true'
+                sh 'docker rmi -f $(docker images --quiet) || true'
             }
         }
     }
