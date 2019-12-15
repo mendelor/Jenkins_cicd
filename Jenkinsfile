@@ -1,33 +1,32 @@
 pipeline {
-    agent none
+    agent any
 
     stages {
-        stage('Clean') {
-            agent { label 'linux' }
+        stage ('Compile Stage') {
+
             steps {
-                echo 'Starting the Pipeline'
-                sh 'docker rm -f $(docker ps --all --quiet) || true'
-                sh 'docker rmi -f $(docker images --quiet) || true'
+                withMaven(maven : 'maven_3_6_3') {
+                    sh 'mvn clean compile'
+                }
             }
         }
-   
-        stage('Build') {
-            agent { label 'linux' }
+
+        stage ('Testing Stage') {
+
             steps {
-            script {
-            dockerImage  = docker.build("mendel/nodeapp12345")
+                withMaven(maven : 'maven_3_6_3') {
+                    sh 'mvn test'
+                }
             }
         }
-    }          
-        stage('Run image') {
-            agent { label 'linux' }
+
+
+        stage ('Deployment Stage') {
             steps {
-            script {
-            dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-                
-                                
+                withMaven(maven : 'maven_3_6_3') {
+                    sh 'mvn deploy'
+                }
             }
-         }
-      }
-   }   
+        }
+    }
 }
