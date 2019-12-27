@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        def image = docker.build('mendelor/hellonode123')
+                        def image = docker.build('mendelor/nodeapp6698')
                         image.push()
                     }
                 }
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('analyze') {
             steps {
-                sh 'echo "docker.io/mendelor/hellonode123 `pwd`/Dockerfile" > anchore_images'
+                sh 'echo "docker.io/mendelor/nodeapp6698 `pwd`/Dockerfile" > anchore_images'
                 anchore name: 'anchore_images'
             }
         }
