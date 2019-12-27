@@ -3,10 +3,6 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh'''
-                    echo 'FROM debian:latest’ > Dockerfile
-                    echo ‘CMD ["/bin/echo", "HELLO WORLD...."]' >> Dockerfile
-                '''
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         def image = docker.build('mendelor/docker')
