@@ -1,38 +1,32 @@
-      pipeline {
-       agent any
-         stages {
-           stage('Initialize') {
-             steps {
-               echo 'Starting the Pipeline'
-               sh 'docker rm -f $(docker ps --all --quiet) || true'
-               sh 'docker rmi -f $(docker images --quiet) || true'
-            }
-          }
-           stage('Build image') {
-             steps {
-              script {
-               dockerImage  = docker.build("mendelor/hellonode123")
-              }
-           }
-        }
-           stage('Run image') {
-             steps {
-              script {
-              dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-
-              }
-           }
-        }
-
-           stage('Push image') {
-             steps {
-               script {
-              docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-              dockerImage.push("${env.BUILD_NUMBER}")
+pipeline {
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                sh'''
+                    echo 'FROM debian:latest’ > Dockerfile
+                    echo ‘CMD ["/bin/echo", "HELLO WORLD...."]' >> Dockerfile
+                '''
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        def image = docker.build('mendelor/docker')
+                        image.push()
+                    }
                 }
-                    echo "Trying to Push Docker Build to DockerHub"
-             }
-          }
-       }
+            }
+        }
+        stage('analyze') {
+            steps {
+                sh 'echo "docker.io/mendelor/docker `pwd`/Dockerfile" > anchore_images'
+                anchore name: 'anchore_images'
+            }
+        }
+        stage('teardown') {
+            steps {
+                sh'''
+                    for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
+                '''
+            }
+        }
     }
-  }
+}
