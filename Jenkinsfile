@@ -11,7 +11,7 @@
            stage('Build image') {
              steps {
               script {
-               dockerImage  = docker.build("mendelor/nodeapp6698")
+               dockerImage  = docker.build("mendelor/hellonode123")
               }
            }
         }
