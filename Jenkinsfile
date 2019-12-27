@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        def image = docker.build('mendelor/vulnerables')
+                        def image = docker.build('mendelor/docker')
                         image.push()
                     }
                 }
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('analyze') {
             steps {
-                sh 'echo "docker.io/mendelor/vulnerables `pwd`/Dockerfile" > anchore_images'
+                sh 'echo "docker.io/mendelor/docker `pwd`/Dockerfile" > anchore_images'
                 anchore name: 'anchore_images'
             }
         }
