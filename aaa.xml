@@ -1,0 +1,14 @@
+{
+        sh("npm install -g gulp bower")
+        sh("npm install")
+        sh("bower install")    
+        try {
+            sh("gulp test")
+        } catch (err) {
+            step([$class: 'JUnitResultArchiver', testResults: '**/reports/junit/*.xml', healthScaleFactor: 1.0])
+            junit '**/reports/junit/*.xml'
+            if (currentBuild.result == 'UNSTABLE')
+                currentBuild.result = 'FAILURE'
+            throw err
+        }
+    }
