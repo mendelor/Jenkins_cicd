@@ -13,8 +13,10 @@ pipeline {
         }  
         stage('Publish test results') {
         steps {
-    junit 'aaa.xml'
-} }
+        sh "./gradlew test"
+        }
+        }
+
         stage('Run image') {
           steps {
            script {
