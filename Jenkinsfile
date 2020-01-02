@@ -1,14 +1,13 @@
-agent any
-stages {
-stage("Compile") {
-steps {
-sh "./gradlew compile.Java1"
-}
-}
-stage("Unit test") {
-steps {
-sh "./gradlew test"
-}
-}
-}
-
+pipeline {
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        def image = docker.build('mendelor/docker')
+                        image.pull()
+                    }
+                }
+            }
+        }  }}
