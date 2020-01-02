@@ -1,9 +1,13 @@
-pipeline {
 agent any
 stages {
-stage("Checkout") {
+stage("Compile") {
 steps {
-git url: 'https://github.com/mendelor/Jenkins_cicd'
+sh "./gradlew compile.Java"
+}
+}
+stage("Unit test") {
+steps {
+sh "./gradlew test"
 }
 }
 }
