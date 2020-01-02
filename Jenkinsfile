@@ -11,10 +11,8 @@ pipeline {
                 }
             }
         }  
-        stage('build') {
-            steps {
-              script {
-                dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-                
-            }
+        stage('Run image') {
+          steps {
+           script {
+           dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")}
         } } } }
