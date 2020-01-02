@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                       dockerImage = time docker.build('mendelor/httpd')
+                       dockerImage = time.docker.build('mendelor/httpd')
                       
                     }
                 }
