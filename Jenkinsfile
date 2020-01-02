@@ -13,7 +13,8 @@ pipeline {
         }  
         stage('analyze') {
             steps {
+              script {
                 sh 'docker run mendelor/docker'
                 
             }
-        } } }
+        } } } }
