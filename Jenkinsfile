@@ -2,7 +2,7 @@ agent any
 stages {
 stage("Compile") {
 steps {
-sh "./gradlew compile.Java"
+sh "./gradlew compile.Java1"
 }
 }
 stage("Unit test") {
