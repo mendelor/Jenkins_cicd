@@ -12,8 +12,9 @@ pipeline {
             }
         }  
         stage('Publish test results') {
+        steps {
     junit '**/test-results/test/*.xml'
-} 
+} }
         stage('Run image') {
           steps {
            script {
