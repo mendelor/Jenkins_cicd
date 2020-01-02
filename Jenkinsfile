@@ -8,7 +8,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         dockerImage = docker.build('mendelor/httpd')
-                    
+                        image.pull()
                     }
                 }
             }
