@@ -1,5 +1,3 @@
-
-
 pipeline {
     agent any
     stages {
@@ -7,7 +5,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        dockerImage = docker.build('mendelor/httpd')
+                       dockerImage = time docker.build('mendelor/httpd')
                       
                     }
                 }
@@ -16,5 +14,5 @@ pipeline {
         stage('Run image') {
           steps {
            script {
-            time dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")}
+              dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")}
         } } } }
