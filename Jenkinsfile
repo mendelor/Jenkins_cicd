@@ -1,13 +1,21 @@
 pipeline {
     agent any
-
-  stage('Checkout') {
-    checkout scm
-    sh 'git clean -xdf'
-  }
-
-  stage('Build and test') {
-    sh './gradlew build'
-    junit 'build/test-results/test/*.xml'
-  }
-}
+    stages {
+        stage('build') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                      time dockerImage = docker.build('mendelor/httpd')
+                      
+                    }
+                }
+            }
+        }  
+        stage('Publish test results') {
+    junit '**/test-results/test/*.xml'
+} 
+        stage('Run image') {
+          steps {
+           script {
+              dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")}
+        } } } }
