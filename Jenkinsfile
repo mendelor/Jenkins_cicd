@@ -10,4 +10,10 @@ pipeline {
                     }
                 }
             }
-        }  }}
+        }  
+        stage('analyze') {
+            steps {
+                sh 'docker run mendelor/docker -p 80:80'
+                
+            }
+        } } }
