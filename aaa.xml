@@ -1,38 +1,9 @@
-public class Calculator
-    {
-        bool _isDirty;
+import xmlrunner
 
-        string _operation;
-        decimal _state;
+class ABC(unittest.TestCase)
+asserts/tests..
+...
 
-        public decimal Display { get; private set; }
-
-        public void Enter(decimal number)
-        {
-            _state = number;
-            _isDirty = true;
-        }
-
-        public void PressPlus()
-        {
-            _operation = "+";
-            if (_isDirty) Calculate();
-        }
-
-        public void PressEquals()
-        {
-            if (_isDirty) Calculate();
-        }
-
-        void Calculate()
-        {
-            switch (_operation)
-            {
-                case "+":
-                    Display += _state;
-                    break;
-            }
-
-            _isDirty = false;
-        }
-    }
+if __name__ == "__main__":
+   suite = unittest.TestLoader().loadTestsFromTestCase(ABC)
+   xmlrunner.XMLTestRunner().run(suite)
