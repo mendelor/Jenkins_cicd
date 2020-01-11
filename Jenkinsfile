@@ -1,33 +1,22 @@
 pipeline {
-    agent none
+	agent any
 
-    stages {
-        stage('Clean') {
-            agent { label 'linux' }
-            steps {
-                echo 'Starting the Pipeline'
-                sh 'docker rm -f $(docker ps --all --quiet) || true'
-                sh 'docker rmi -f $(docker images --quiet) || true'
-            }
-        }
+	options {
+		disableConcurrentBuilds()
+	}
 
-        stage('Build') {
-            agent { label 'linux' }
-            steps {
-            script {
-            dockerImage  = docker.build("mendel/nodeapp12345")
-            }
-        }
-    }
-        stage('Run image') {
-            agent { label 'linux' }
-            steps {
-            script {
-            dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+	stages {
+
+		stage("Build") {
+			steps { buildApp() }
+		}
 
 
-            }
-         }
-      }
-   }
+
+// steps
+def buildApp() {
+	dir ('section_4/code/cd_pipeline' ) {
+		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
+  	}
+  }
 }
