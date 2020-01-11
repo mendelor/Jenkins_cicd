@@ -7,7 +7,7 @@
   		stage("Build") {
   			steps { buildApp() }
   		}
-   }
+    }}
   
   
   // steps
