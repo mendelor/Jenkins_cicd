@@ -1,25 +1,33 @@
 pipeline {
-agent any
-stages {
+    agent none
 
-    stage "build"
-        // build without tests
-        checkout scm
-        sh './gradlew clean build -x test -x integTest'
+    stages {
+        stage('Clean') {
+            agent { label 'linux' }
+            steps {
+                echo 'Starting the Pipeline'
+                sh 'docker rm -f $(docker ps --all --quiet) || true'
+                sh 'docker rmi -f $(docker images --quiet) || true'
+            }
+        }
 
-    stage "unit test"
-        // returnStatus: true here will ensure the build stays yellow
-        // when test cases are failing
-        sh (script: './gradlew test', returnStatus: true)
-        step([$class: 'JUnitResultArchiver',
-             testResults: '**/build/test-results/test/TEST-*.xml'])
-
-    if (currentBuild.result == null) {
-        // if unit tests have failed currentBuild will be 'UNSTABLE'
-        // and we should not bother to run integration tests
-        stage "integration test"
-            sh (script: './gradlew integTest', returnStatus: true)
-            step([$class: 'JUnitResultArchiver',
-                 testResults: '**/build/test-results/integTest/TEST-*.xml'])
+        stage('Build') {
+            agent { label 'linux' }
+            steps {
+            script {
+            dockerImage  = docker.build("mendel/nodeapp12345")
+            }
+        }
     }
-} }
+        stage('Run image') {
+            agent { label 'linux' }
+            steps {
+            script {
+            dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
+
+
+            }
+         }
+      }
+   }
+}
