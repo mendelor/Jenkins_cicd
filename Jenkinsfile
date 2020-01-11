@@ -17,6 +17,7 @@ def buildApp() {
 	dir ('section_4/code/cd_pipeline' ) {
 		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
 	}
+	sh 'mkdir aaa'
  }
 
 
