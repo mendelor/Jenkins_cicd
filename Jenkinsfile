@@ -11,12 +11,11 @@ pipeline {
   		}
     }
 
-    stages {
   		stage("Deploy - Dev") {
   			steps { deploy('dev') }
       }
     }
-  }
+
   
 // steps
 def deploy(environment) {
@@ -30,5 +29,6 @@ def buildApp() {
 		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
     	}
     }
+
 
 
