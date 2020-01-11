@@ -18,7 +18,7 @@ pipeline {
   			steps { deploy('dev') }
       }
     }
-  }}}
+  }}
   
 // steps
 def buildApp() {
