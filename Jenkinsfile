@@ -11,7 +11,7 @@
   
   
   // steps
-  def buildApp() {
+    buildApp() {
       script {
   		sh 'docker build -t blahblii . '
     	}}
