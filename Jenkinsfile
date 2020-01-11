@@ -7,9 +7,8 @@ pipeline {
     stages {
   		stage("Test - Unit tests") {
   			steps { runUnittests() }
-		}}
+  		}
 
-  	stage {
   		stage("Build") {
   			steps { buildApp() }
   		}
@@ -50,4 +49,3 @@ def deploy(environment) {
 	sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
 	sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
 }
-
