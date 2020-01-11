@@ -27,8 +27,8 @@ def buildApp() {
     }
 
     def runUnittests() {
-    	sh "pip3 install --no-cache-dir -r ./Jenkins_cicd"
-    	sh "python3 Jenkins_cicd/test_flask_app.py"
+    	sh "pip3 install --no-cache-dir -r ./section_4/code/cd_pipeline/requirements.txt"
+    	sh "python3 section_4/code/cd_pipeline/tests/test_flask_app.py"
     }
 
     
@@ -49,3 +49,4 @@ def deploy(environment) {
 	sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
 	sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
 }
+
