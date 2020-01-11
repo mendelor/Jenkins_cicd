@@ -27,7 +27,7 @@ def buildApp() {
     }
 
     def runUnittests() {
-    	sh "pip3 install --no-cache-dir -r ./Jenkins_cicd/requirements.txt"
+    	sh "pip3 install --no-cache-dir -r ./Jenkins_cicd"
     	sh "python3 Jenkins_cicd/test_flask_app.py"
     }
 
