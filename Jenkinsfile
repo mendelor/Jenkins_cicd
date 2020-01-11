@@ -1,30 +1,35 @@
 pipeline {
-    agent none
+agent any
 
-    stages {
-        stage('Clean') {
-            agent { label 'linux' }
-            steps {
-                echo 'Starting the Pipeline'
-                sh 'docker rm -f $(docker ps --all --quiet) || true'
-                sh 'docker rmi -f $(docker images --quiet) || true'
-            }
-        }
+environment {
+         PASS = credentials('dockerhub_pass')
 
-        stage('Build') {
-            agent { label 'linux' }
-            steps {
-            script {
-            dockerImage  = docker.build("mendel/docker")
-            }
-         }
-      }
-   }
 }
 
-    post {
-        success {
-            echo 'This will run only if successful'
-        }
+stages {
+    stage('Remove Docker Containers') {
+        steps {
+
+        sh 'docker rm -f $(docker ps --all --quiet) || true'
+          }
+       }
+
+    stage('Remove Docker Images') {
+        steps {
+         sh 'docker rmi -f $(docker images --quiet) || true'
+       }
+    }
+
+       stage('Build') {
+           steps {
+               sh 'docker build -t blahblii . '
+           }
+       }
+       stage('run') {
+           steps {
+               sh 'docker run -d -p 80:80  blahblii'
+           }
+       }
+
     }
 }
