@@ -7,7 +7,7 @@ pipeline {
     stages {
   		stage("Test - Unit tests") {
   			steps { runUnittests() }
-  		}
+		}}
 
   	stage {
   		stage("Build") {
@@ -18,7 +18,7 @@ pipeline {
   			steps { deploy('dev') }
       }
     }
-  }}
+  }
   
 // steps
 def buildApp() {
