@@ -5,13 +5,13 @@ pipeline {
         stage('Build') {
             agent { label 'linux' }
             steps {
-                sh 'docker build -t blahblii . '
+                sh 'docker build -t blahbliii . '
             }
         }
         stage('run') {
             agent { label 'linux' }
             steps {
-                sh ' docker run -d -p 80:80 blahblii '
+                sh ' docker run -d -p 80:80 blahbliii '
           }
        }
     }
