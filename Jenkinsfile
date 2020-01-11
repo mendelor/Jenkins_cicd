@@ -4,8 +4,12 @@ pipeline {
     options {
       disableConcurrentBuilds()
     }
+    stages {
+  		stage("Test - Unit tests") {
+  			steps { runUnittests() }
+  		}
 
-  	stages {
+  	stage {
   		stage("Build") {
   			steps { buildApp() }
   		}
@@ -14,7 +18,7 @@ pipeline {
   			steps { deploy('dev') }
       }
     }
-  }
+  }}}
   
 // steps
 def buildApp() {
@@ -23,7 +27,12 @@ def buildApp() {
     	}
     }
 
+    def runUnittests() {
+    	sh "pip3 install --no-cache-dir -r ./Jenkins_cicd/requirements.txt"
+    	sh "python3 Jenkins_cicd/test_flask_app.py"
+    }
 
+    
 def deploy(environment) {
 
 	def containerName = ''
@@ -41,7 +50,4 @@ def deploy(environment) {
 	sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
 	sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
 }
-
-
-
 
