@@ -15,19 +15,16 @@ pipeline {
             agent { label 'linux' }
             steps {
             script {
-            dockerImage  = docker.build("mendel/docker")
-            }
-        }
-    }
-        stage('Run image') {
-            agent { label 'linux' }
-            steps {
-            script {
-            dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
-
-
+            dockerImage  = docker.build("mendel/nodeapp12345")
             }
          }
       }
    }
+}
+
+    post {
+        success {
+            echo 'This will run only if successful'
+        }
+    }
 }
