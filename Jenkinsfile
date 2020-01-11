@@ -15,7 +15,7 @@ pipeline {
             agent { label 'linux' }
             steps {
             script {
-            dockerImage  = docker.build("mendel/nodeapp12345")
+            dockerImage  = docker.build("mendel/docker")
             }
         }
     }
