@@ -1,18 +1,20 @@
-  pipeline {
-  	agent any
-  
-  
+pipeline {
+    agent any
+
+    options {
+      disableConcurrentBuilds()
+    }
+
   	stages {
-  
   		stage("Build") {
   			steps { buildApp() }
   		}
-    }}
+    }
+  }
   
-  
-  // steps
-    def buildApp() {
-       def appImage  = docker.build("mendel/nodeapp1")
+// steps
+  def buildApp() {
+     def appImage  = docker.build("mendel/docker")
     }
 
 
