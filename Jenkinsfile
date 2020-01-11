@@ -12,7 +12,6 @@
   
   // steps
     buildApp() {
-      script {
-  		sh 'docker build -t blahblii . '
-    	}}
+       dockerImage  = docker.build("mendel/nodeapp1")
+    }
 
