@@ -1,28 +1,3 @@
-pipeline {
-    agent any
-
-    options {
-      disableConcurrentBuilds()
-    }
-
-  	stages {
-  		stage("Build") {
-  			steps { buildApp() }
-  		}
-    }
-  }
-  
-// steps
-def buildApp() {
-	dir ('section_4/code/cd_pipeline' ) {
-		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
-    	}
-    }
-------------------------------------
-// groups jenkins         
-in jenkins sparse checkout path     - run files only in a specific directory which will make it more faster
-------------------------------------
-
 
 
 pipeline {
@@ -55,6 +30,7 @@ def buildApp() {
 		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
     	}
     }
+
 
 
 
