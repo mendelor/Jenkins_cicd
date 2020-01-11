@@ -1,35 +1,38 @@
-pipeline {
-agent any
+      pipeline {
+       agent any
+         stages {
+           stage('Initialize') {
+             steps {
+               echo 'Starting the Pipeline'
+               sh 'docker rm -f $(docker ps --all --quiet) || true'
+               sh 'docker rmi -f $(docker images --quiet) || true'
+            }
+          }
+           stage('Build image') {
+             steps {
+              script {
+               dockerImage  = docker.build("mendelor/nodeapp6698")
+              }
+           }
+        }
+           stage('Run image') {
+             steps {
+              script {
+              dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
 
-environment {
-         PASS = credentials('docker-hub-credentials')
+              }
+           }
+        }
 
-}
-
-stages {
-    stage('Remove Docker Containers') {
-        steps {
-
-        sh 'docker rm -f $(docker ps --all --quiet) || true'
+           stage('Push image') {
+             steps {
+               script {
+              docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+              dockerImage.push("${env.BUILD_NUMBER}")
+                }
+                    echo "Trying to Push Docker Build to DockerHub"
+             }
           }
        }
-
-    stage('Remove Docker Images') {
-        steps {
-         sh 'docker rmi -f $(docker images --quiet) || true'
-       }
     }
-
-       stage('Build') {
-           steps {
-               sh 'docker build -t blahblii . '
-           }
-       }
-       stage('run') {
-           steps {
-               sh 'docker run -d -p 80:80  blahblii'
-           }
-       }
-
-    }
-}
+  }
