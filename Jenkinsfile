@@ -11,7 +11,10 @@
   
   
   // steps
-    buildApp() {
-       sh 'docker rmi -f $(docker images --quiet) || true'
+    def buildApp() {
+       def appImage  = docker.build("mendel/nodeapp1")
     }
+
+
+
 
