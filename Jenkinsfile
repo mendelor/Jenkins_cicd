@@ -13,10 +13,10 @@ pipeline {
   }
   
 // steps
-  def buildApp() {
-     def appImage  = docker.build("mendel/docker")
-    }
-
-
+def buildApp() {
+	dir ('section_4/code/cd_pipeline' ) {
+		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
+	}
+}
 
 
