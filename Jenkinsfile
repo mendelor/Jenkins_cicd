@@ -14,8 +14,7 @@ pipeline {
 
         } } } }
        stage ('run') {
-          steps {
             script { 
           app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
 
-        }}}}
+        }}}
