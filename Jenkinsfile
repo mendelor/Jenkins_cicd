@@ -10,7 +10,7 @@ pipeline {
           steps {
             script {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                    app = docker.build('mendelor/nodeapp6698')
+                    app = docker.build('mendelor/Docker')
 
         } } } }
         stage('analyze') {
