@@ -13,6 +13,6 @@ pipeline {
                     def image = docker.build('mendelor/docker')
         } }
        stage ('run image') {
-          def.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
+          def image.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
 
         }}}}
