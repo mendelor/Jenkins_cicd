@@ -19,7 +19,7 @@ pipeline {
           app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   
 
         }}
-        stage ('run') {
+        stage ('clean') {
            steps {
              script { 
                sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
