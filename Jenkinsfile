@@ -15,4 +15,4 @@ pipeline {
        stage ('run image') {
           app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
 
-        }}}
+        }}
