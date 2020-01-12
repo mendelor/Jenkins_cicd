@@ -1,7 +1,7 @@
 pipeline {
     agent any
     options { 
-      timeout(time: 1, unit: 'MINUTES') 
+      timeout(time: 5, unit: 'MINUTES') 
       disableConcurrentBuilds()  
     }
   
@@ -35,4 +35,19 @@ pipeline {
              script { 
                sh "docker ps -f name=${env.BUILD_NUMBER} -q | xargs --no-run-if-empty docker stop"
                sh "docker ps -a -f name=${env.BUILD_NUMBER} -q | xargs -r docker rm"   
-        }}}}}
+        }}}
+
+        stage('analyze') {
+            steps {
+                sh 'echo "docker.io/mendelor/docker `pwd`/Dockerfile" > anchore_images'
+                anchore name: 'anchore_images'
+            }
+        }
+        stage('teardown') {
+            steps {
+                sh'''
+                    for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
+                '''
+            }
+        }
+        }}
