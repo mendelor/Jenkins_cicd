@@ -1,7 +1,9 @@
 pipeline {
     agent any
-    stages { 
-    stage(‘Build’) {
-        script {
-      sh ‘docker-compose –d’
-        }}}}
+    stages{
+      stage('Test') {
+       steps {
+         script {
+          sh 'docker images'
+          }
+       }}}}
