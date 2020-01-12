@@ -22,6 +22,6 @@ pipeline {
         stage ('clean') {
            steps {
              script { 
-               sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
-               sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"   
+               sh "docker ps -f name=${pngimage_build_${env.BUILD_NUMBER}} -q | xargs --no-run-if-empty docker stop"
+               sh "docker ps -a -f name=${pngimage_build_${env.BUILD_NUMBER}} -q | xargs -r docker rm"   
         }}}}}
