@@ -1,51 +1,15 @@
 pipeline {
     agent any
-
-    options {
-      disableConcurrentBuilds()
+    options { 
+      timeout(time: 5, unit: 'MINUTES') 
+      disableConcurrentBuilds()  
     }
-    stages {
-  		stage("Test - Unit tests") {
-  			steps { runUnittests() }
-  		}
-
-  		stage("Build") {
-  			steps { buildApp() }
-  		}
-      
-  		stage("Deploy - Dev") {
-  			steps { deploy('dev') }
-      }
-    }
-  }
   
-// steps
-def buildApp() {
-	dir ('section_4/code/cd_pipeline' ) {
-		def appImage = docker.build("hands-on-jenkins/myapp:${BUILD_NUMBER}")
-    	}
-    }
 
-    def runUnittests() {
-    	sh "pip3 install --no-cache-dir -r ./requirements.txt"
-    	sh "python3 app.py"
-    }
-
-    
-def deploy(environment) {
-
-	def containerName = ''
-	def port = ''
-
-	if ("${environment}" == 'dev') {
-		containerName = "app_dev"
-		port = "80"
-	} 
-	else {
-		println "Environment not valid"
-		System.exit(0)
-	}
-
-	sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
-	sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
-}
+    stages { 
+       stage ('pull image') {
+          steps {
+            script {
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_pass') {
+                    def image = docker.build('mendelor/docker')
+} } } } } } 
