@@ -19,6 +19,17 @@ pipeline {
           app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   
 
         }}}
+
+        stage('Approval') {
+            input {
+               message 'Should we continue?'
+             }
+          steps {
+             echo 'Deploying'
+
+             }
+          }
+
         stage ('clean') {
            steps {
              script { 
