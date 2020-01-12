@@ -4,6 +4,6 @@ pipeline {
       stage('Test') {
        steps {
          script {
-          sh 'docker images'
+          sh 'docker-compose up -d'
           }
        }}}}
