@@ -12,7 +12,7 @@ pipeline {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                     app = docker.build('mendelor/docker')
 
-        } } } }
+        } } } 
        stage ('run') {
           steps {
             script { 
@@ -24,4 +24,4 @@ pipeline {
              script { 
                sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
                sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"   
-        }}}}}}
+             }}}}}}}
