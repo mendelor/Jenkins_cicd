@@ -10,9 +10,10 @@ pipeline {
           steps {
             script {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                    image = docker.build('mendelor/docker')
+                    app = docker.build('mendelor/docker')
+
         } }
        stage ('run image') {
-          image.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
+          app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
 
         }}}}
