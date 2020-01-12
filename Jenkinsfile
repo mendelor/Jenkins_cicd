@@ -1,9 +1,15 @@
-pipeline {
+
+    pipeline {
+
     agent any
-    stages{
-      stage('Test') {
-       steps {
-         script {
-          sh 'docker-compose up -d'
-          }
-       }}}}
+
+    stages {
+      stage(‘Build’) {
+        steps {
+          sh '/var/lib/jenkins/workspace/test-pipe/docker-compose up --build'
+        }
+      }
+    }
+}
+
+
