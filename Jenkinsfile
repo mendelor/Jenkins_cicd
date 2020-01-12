@@ -1,18 +1,16 @@
 pipeline {
     agent any
-    options { 
-      timeout(time: 5, unit: 'MINUTES') 
-      disableConcurrentBuilds()  
-    }
-  
-    stages { 
-       stage ('built') {
-          steps {
-            script {
-                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                    app = docker.build('mendelor/docker')
-
-        } } } }
+    stages {
+        stage('build') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        def image = docker.build('mendelor/docker')
+                        image.push()
+                    }
+                }
+            }
+        }
         stage('analyze') {
             steps {
                 sh 'echo "docker.io/mendelor/docker `pwd`/Dockerfile" > anchore_images'
@@ -26,27 +24,5 @@ pipeline {
                 '''
             }
         }
-        
-       stage ('run') {
-          steps {
-            script { 
-          app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   
-
-        }}}
-
-        stage('Approval') {
-            input {
-               message 'Should we continue?'
-             }
-          steps {
-             echo 'Deploying'
-
-             }
-          }
-
-        stage ('clean') {
-           steps {
-             script { 
-               sh "docker ps -f name=${env.BUILD_NUMBER} -q | xargs --no-run-if-empty docker stop"
-               sh "docker ps -a -f name=${env.BUILD_NUMBER} -q | xargs -r docker rm"   
-        }}}}}
+    }
+}
