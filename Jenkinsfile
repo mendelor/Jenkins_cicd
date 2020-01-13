@@ -1,16 +1,21 @@
-
-
-    pipeline {
-
+pipeline {
     agent any
+    options {
+      timeout(time: 5, unit: 'MINUTES')
+      disableConcurrentBuilds()
+    }
 
     stages {
-      stage(‘Build’) {
-        steps {
+       stage ('built') {
+          steps {
             script {
-          sh "docker-compose up --build -d"
-        }
-      }
-    }
-}
-    }
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    app = docker.build('mendelor/docker')
+
+        } } } }
+       stage ('run') {
+          steps {
+            script {
+          app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   }
+
+        }}}}
