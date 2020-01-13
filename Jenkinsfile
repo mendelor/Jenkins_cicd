@@ -1,6 +1,6 @@
 pipeline {
      
-     agent { label 'linux' && 'master'  }
+     agent { label 'linux' && 'any'  }
 
   
     options {
