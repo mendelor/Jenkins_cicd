@@ -1,7 +1,7 @@
 pipeline {
     agent {
-        node {  label 'linux' }
-        node {  label 'master' }
+       {  label 'linux' }
+       {  label 'master' }
             
     }
   
