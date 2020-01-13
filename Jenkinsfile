@@ -1,7 +1,9 @@
 pipeline {
      
-     agent { label 'linux' && 'any'  }
-
+     agent { 
+          label{ 'linux' }
+          label { 'master'  }
+     }
   
     options {
       timeout(time: 5, unit: 'MINUTES')
