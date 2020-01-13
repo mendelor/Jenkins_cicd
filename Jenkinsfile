@@ -1,7 +1,7 @@
 pipeline {
      
     agents {
-        label "linux" &&
+        label "linux",
         label "master"
     }
   
