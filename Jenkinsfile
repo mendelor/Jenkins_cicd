@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'linux' || label 'master' }
+    agent any { label 'linux' }
     options {
       timeout(time: 5, unit: 'MINUTES')
       disableConcurrentBuilds()
