@@ -1,9 +1,9 @@
 pipeline {
-    agent { docker "httpd;2.4" }
+    agent { docker 'python:3.5.1 }
     stages {
         stage("build") {
             steps {
-                sh 'mvn clean install -Dmaven.test.failure.ignore=true'
+                sh 'python --version'
             }
         }
     }
