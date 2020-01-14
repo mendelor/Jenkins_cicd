@@ -1,9 +1,9 @@
 pipeline {
-    agent { Dockerfile }
+    agent any
     stages {
         stage("build") {
             steps {
-                echo 'test'
+                sh 'docker build -t 111111 .'
             }
         }
     }}
