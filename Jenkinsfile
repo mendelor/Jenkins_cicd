@@ -6,4 +6,4 @@ pipeline {
                 echo 'test'
             }
         }
-    }]
+    }}
