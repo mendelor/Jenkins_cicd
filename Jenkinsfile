@@ -9,6 +9,6 @@ pipeline {
       stage ('test') {
        steps {
           sh 'chmod +x test.php'
-          sh './test.php'
+          sh 'test.php'
       }
        }}}
