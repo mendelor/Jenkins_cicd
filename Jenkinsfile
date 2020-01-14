@@ -5,8 +5,9 @@ pipeline {
       disableConcurrentBuilds()
     }
 
-    stages{
+    stages {
       stage ('test') {
+       steps {
           dir ('unitest')
       }
-       }}
+       }}}
