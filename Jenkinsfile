@@ -1,11 +1,14 @@
-
 pipeline {
-    agent { docker 'python:3.5.1' }
-    stages {
-        stage('build') {
-            steps {
-                sh 'python --version'
-            }
-        }
+    agent any
+    options {
+      timeout(time: 5, unit: 'MINUTES')
+      disableConcurrentBuilds()
     }
-}
+
+    stages {
+      stage ('test') {
+       steps {
+          sh 'chmod +x test.php'
+          sh './test.php'
+      }
+       }}}
