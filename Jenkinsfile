@@ -9,7 +9,6 @@ pipeline {
     }
     post {
         always {
-            archive "target/**/*"
             junit 'build.xml'
         }
     }
