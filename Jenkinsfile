@@ -3,7 +3,13 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                sh 'docker-compose up -d '
+                sh 'docker-compose up '
             }
         }
-    }}
+        stage("run") {
+            steps { 
+                sh 'docker container start mysql:5.7'
+            }
+        }
+    }
+}
