@@ -8,6 +8,8 @@ pipeline {
     stages {
       stage ('test') {
        steps {
-          dir ('unitest')
+           dir ('unitest') {
+            echo 'hello'   
+           }
       }
        }}}
