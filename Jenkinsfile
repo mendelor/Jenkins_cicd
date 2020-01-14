@@ -1,15 +1,16 @@
+
 pipeline {
-    agent { docker 'php' }
+    agent any
     stages {
-        stage("build") {
+        stage('Test') {
             steps {
-                sh 'php --version'
+                sh './gradlew check'
             }
         }
     }
     post {
-        success  {
-            junit 'build.xml'
+        always {
+            junit 'build/reports/**/*.xml'
         }
     }
 }
