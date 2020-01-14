@@ -1,17 +1,11 @@
 
-
 pipeline {
-    agent any
-    options {
-      timeout(time: 5, unit: 'MINUTES')
-      disableConcurrentBuilds()
-    }
-
+    agent { docker 'python:3.5.1' }
     stages {
-      stage ('test') {
-       steps {
-           dir ('unitest') {
-            echo 'hello'   
-           }
-      }
-       }}}
+        stage('build') {
+            steps {
+                sh 'python --version'
+            }
+        }
+    }
+}
