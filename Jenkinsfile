@@ -1,16 +1,9 @@
-
 pipeline {
-    agent any
+    agent { Dockerfile }
     stages {
-        stage('Test') {
+        stage("build") {
             steps {
-                sh './gradlew check'
+                echo 'test'
             }
         }
-    }
-    post {
-        always {
-            junit 'build/reports/**/*.xml'
-        }
-    }
-}
+    }]
