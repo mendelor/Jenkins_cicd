@@ -3,9 +3,11 @@
          docker { image 'java' }
      }
      stages {
-         stage("Unit test") {
-             sh "./gradlew compileJava"
+         stage("Compile") {
+             steps {
+                 sh "./gradlew compileJava"
              }
          }
      }
+ }
 
