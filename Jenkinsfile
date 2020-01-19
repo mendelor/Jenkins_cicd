@@ -9,11 +9,11 @@ pipeline {
         
          }      
       }
+   }
 
     post {
          always {
               mail to: 'zqpmdj7@gmail.com'
-          }
        }
     }
  }
