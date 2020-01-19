@@ -13,7 +13,9 @@ pipeline {
 
     post {
          always {
-              mail to: 'zqpmdj7@gmail.com'
+              mail to: 'zqpmdj7@gmail.com',
+                   subject: "Completed Pipeline",
+                   body: "Your build completed"
        }
     }
  }
