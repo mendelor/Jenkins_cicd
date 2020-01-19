@@ -1,12 +1,13 @@
 pipeline {
-    agent any
-
-        stages {
-            stage('compile') {
-                steps {
-                    sh "./gradlew test"
-                }
-            }
-        }
-    }
-
+    agent any {} 
+    option { disableConcurrentBuilds() }
+    
+    stages { 
+      stage ("test") {
+        steps {
+          sh 'hello'
+        
+         }      
+      }
+   }
+}
