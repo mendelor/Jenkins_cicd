@@ -1,22 +1,19 @@
+
 pipeline {
-    agent any 
-    options { disableConcurrentBuilds() }
-    
-    stages { 
-      stage ("test") {
-        steps {
-          sh 'echo hello'
-        
-         }      
-      }
-   }
-
-    post {
-         always {
-              mail to: 'zqpmdj14@gmail.com',
-                   subject: "Completed Pipeline",
-                   body: "Your build was completed"
+   agent any
+   stages {
+       stage('Stage 1') {
+           steps {
+               parallel (
+                       one: { echo "parallel step 1" },
+                       two: { echo "parallel step 2" }
+               )
+           }
        }
-    }
- }
-
+       stage('Stage 2') {
+           steps {
+               echo "run after both parallel steps are completed"   
+           }
+       }
+   }
+}
