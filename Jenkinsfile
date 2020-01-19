@@ -1,5 +1,5 @@
 pipeline {
-    agent any {} 
+    agent any 
     option { disableConcurrentBuilds() }
     
     stages { 
