@@ -1,12 +1,32 @@
 pipeline {
-    agent any 
-    options { disableConcurrentBuilds() }
-    stages { 
-      stage ("stage1") {
-        steps {
-          echo "Build ID: ${env.BUILD_ID}, Jenkins URL: ${env.JENKINS_URL}" 
-        
-           }      
-         }
-      }
-   }
+    agent any
+
+    stages {
+        stage ('Compile Stage') {
+
+            steps {
+                withMaven(maven : 'maven_3_5_0') {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage ('Testing Stage') {
+
+            steps {
+                withMaven(maven : 'maven_3_5_0') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+
+        stage ('Deployment Stage') {
+            steps {
+                withMaven(maven : 'maven_3_5_0') {
+                    sh 'mvn deploy'
+                }
+            }
+        }
+    }
+}
