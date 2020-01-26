@@ -5,7 +5,7 @@ pipeline {
         stage('Clean') {
             agent { label 'linux' }
             steps {
-                echo 'Starting the Pipeline'
+               
                 sh 'docker rm -f $(docker ps --all --quiet) || true'
                 sh 'docker rmi -f $(docker images --quiet) || true'
                 sh 'service apache2 stop'
