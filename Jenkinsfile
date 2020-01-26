@@ -1,28 +1,13 @@
-pipeline {
-    agent any
-    options {
-      timeout(time: 5, unit: 'MINUTES')
-      disableConcurrentBuilds()
-    }
+pipeline 
+  agent { label 'linux' }
+  stages {
+    
+    stage ('one') {
 
-    stages {
-       stage ('built') {
-          steps {
-            script {
-                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                    app = docker.build('mendelor/docker')
-
-        } } } }
-       parallel {
-       stage ('run') {
-         agent { label 'linux' }
-          steps {
-            script {
-          app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } }
-
-          agent { label 'any'}
-            steps {
-              script {
-            app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } }
-
-        }}}}
+  steps {
+      echo 'Starting the Pipeline'
+      sh 'docker rm -f $(docker ps --all --quiet) || true'
+      sh 'docker rmi -f $(docker images --quiet) || true'
+  }
+}
+}
