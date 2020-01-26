@@ -1,4 +1,4 @@
-pipeline 
+pipeline  {
   agent { label 'linux' }
   stages {
     
@@ -9,4 +9,6 @@ pipeline
       sh 'docker rmi -f $(docker images --quiet) || true'
   }
 }
-}
+  } }
+
+
