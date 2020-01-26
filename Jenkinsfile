@@ -18,11 +18,11 @@ pipeline {
          agent { label 'linux' }
           steps {
             script {
-          app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } }
+                app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } } }
 
           agent { label 'any'}
             steps {
               script {
             app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } }
 
-        }}}}
+        }}}
