@@ -1,16 +1,28 @@
-
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine' 
-            args '-v /root/.m2:/root/.m2' 
-        }
+    agent any
+    options {
+      timeout(time: 5, unit: 'MINUTES')
+     
     }
+
     stages {
-        stage('Build') { 
+       stage ('built') {
+          steps {
+            script {
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    app = docker.build('mendelor/docker')
+
+        } } } }
+       parallel {
+       stage ('run') {
+         agent { label 'linux' }
+          steps {
+            script {
+          app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } }
+
+          agent { label 'any'}
             steps {
-                sh 'mvn -B -DskipTests clean package' 
-            }
-        }
-    }
-}
+              script {
+            app.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t")   } }
+
+        }}}}
