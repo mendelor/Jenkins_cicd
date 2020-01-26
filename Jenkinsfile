@@ -8,7 +8,7 @@ pipeline {
                 echo 'Starting the Pipeline'
                 sh 'docker rm -f $(docker ps --all --quiet) || true'
                 sh 'docker rmi -f $(docker images --quiet) || true'
-                sh 'sudo service apache2 stop'
+                sh 'service apache2 stop'
             }
         }
 
