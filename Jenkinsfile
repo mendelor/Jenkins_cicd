@@ -1,35 +1,18 @@
 pipeline {
-    agent none
-
+   agent any
     stages {
-        stage('Clean') {
-            agent { label 'linux' }
-            steps {
-               
-                sh 'docker rm -f $(docker ps --all --quiet) || true'
-                sh 'docker rmi -f $(docker images --quiet) || true'
-                
-            }
+      stage ("Cloning Git") {
+        steps {
+          git "https://github.com/mendelor/phtml.git"
         }
-
-        stage('Build') {
-            agent { label 'linux' }
-            steps {
-            script {
-            dockerImage  = docker.build("mendel/nodeapp12345")
-            }
+      }
+      stage('Building image') {
+        steps{
+          script {
+            sh 'docker build -t aaa  ":$BUILD_NUMBER" '
+          }
         }
     }
-        stage('Run image') {
-            agent { label 'linux' }
-            steps {
-            script {
-            dockerImage.run("--name pngimage_build_${env.BUILD_NUMBER} -i -t -p 80:80")
 
-
-            }
-         }
-      }
-   }
-}
+}}
 
