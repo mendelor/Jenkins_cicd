@@ -9,7 +9,7 @@ pipeline {
       stage('Building image') {
         steps{
           script {
-            sh 'docker build -t aa456aaa . '
+            sh 'docker build -t aa456aaa34 . '
           }
         }
     }
